@@ -39,19 +39,25 @@ data Dec (P : Set) : Set where
   yes : P → Dec P
   no : ¬ P → Dec P
 
-
 -- counterexample is also available
 ¬∀m≤n : ¬ ∀ (m n : ℕ) → m ≤ n
 ¬∀m≤n x with x 1 zero
 ... | ()
 
-
 -- helper fucntion
 s≤z : ∀ (x : ℕ) → ¬ (suc x ≤ zero)
 s≤z m ()
 
+¬s≤s : ∀ {m n : ℕ} → ¬ (m ≤ n) → ¬ (suc m ≤ suc n)
+¬s≤s ¬m≤n (s≤s m≤n) = ¬m≤n m≤n
+
 ?∀m≤n : ∀ (m n : ℕ) → Dec (m ≤ n)
-?∀m≤n zero zero = yes z≤n
-?∀m≤n (suc m) zero = no (s≤z m) 
-?∀m≤n zero (suc n) = yes z≤n
-?∀m≤n (suc m) (suc n) = {!   !} 
+-- ?∀m≤n zero zero = yes z≤n
+-- ?∀m≤n zero (suc n) = yes z≤n
+?∀m≤n zero n = yes z≤n
+-- ?∀m≤n (suc m) zero = no (s≤z m)
+?∀m≤n (suc m) zero = no (λ {()})
+?∀m≤n (suc m) (suc n) with ?∀m≤n m n
+... | yes x = yes (s≤s x)
+-- ... | no np = no (¬s≤s np)
+... | no x = no (λ { (s≤s y) → x y})
