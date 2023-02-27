@@ -45,8 +45,13 @@ data Dec (P : Set) : Set where
 ¬∀m≤n x with x 1 zero
 ... | ()
 
+
+-- helper fucntion
+s≤z : ∀ (x : ℕ) → ¬ (suc x ≤ zero)
+s≤z m ()
+
 ?∀m≤n : ∀ (m n : ℕ) → Dec (m ≤ n)
 ?∀m≤n zero zero = yes z≤n
-?∀m≤n (suc m) zero = no λ x → {!   !}
+?∀m≤n (suc m) zero = no (s≤z m) 
 ?∀m≤n zero (suc n) = yes z≤n
 ?∀m≤n (suc m) (suc n) = {!   !} 
