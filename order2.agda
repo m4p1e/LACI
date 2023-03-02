@@ -22,3 +22,10 @@ tri-the (suc m) (suc n) with tri-the m n
 ... | inj₁ x = inj₁ (s≤s x)
 ... | inj₂ (inj₁ x) = inj₂ (inj₁ (cong suc x))
 ... | inj₂ (inj₂ y) = inj₂ (inj₂ (s≤s y))
+
+data _≤₁_ : ℕ → ℕ → Set where
+  ≤₁-refl : ∀ {n : ℕ} → n ≤₁ n
+  ≤₁-suc : ∀ {m n : ℕ} → m ≤₁ n → m ≤₁ suc n
+
+≤-eq : ∀ m n → m ≤₁ n → m ≤ n
+≤-eq m n r = {!   !} 
