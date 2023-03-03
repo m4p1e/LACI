@@ -23,9 +23,21 @@ tri-the (suc m) (suc n) with tri-the m n
 ... | inj₂ (inj₁ x) = inj₂ (inj₁ (cong suc x))
 ... | inj₂ (inj₂ y) = inj₂ (inj₂ (s≤s y))
 
+-- ≤ definition in Coq
 data _≤₁_ : ℕ → ℕ → Set where
   ≤₁-refl : ∀ {n : ℕ} → n ≤₁ n
   ≤₁-suc : ∀ {m n : ℕ} → m ≤₁ n → m ≤₁ suc n
 
+m≤m : ∀ m → m ≤ m
+m≤m zero = z≤n
+m≤m (suc m) = s≤s (m≤m m)
+
+≤suc : ∀ m n → m ≤ n → m ≤ suc n
+≤suc .zero n z≤n = z≤n
+≤suc .(suc _) .(suc _) (s≤s r) = s≤s (≤suc _ _ r)  
+
+-- they are equivalent
 ≤-eq : ∀ m n → m ≤₁ n → m ≤ n
-≤-eq m n r = {!   !} 
+≤-eq m .m ≤₁-refl = m≤m m
+≤-eq m (suc n) (≤₁-suc r) with ≤-eq m n r
+... | s = ≤suc m n s
