@@ -1,5 +1,5 @@
 module order2 where
-open import Data.Nat using (_≤_; z≤n; s≤s; _<_)
+open import Data.Nat using (_≤_; _+_; z≤n; s≤s; _<_)
 open import Data.Nat.Properties using (≤-refl; ≤-trans)
 open import Relation.Binary.PropositionalEquality
   using (_≡_; refl; cong; sym; trans)
