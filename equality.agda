@@ -19,7 +19,7 @@ defeq = refl
 ≡-trans refl refl = refl
 
 cong : ∀ {A B : Set} {f : A → B} {x y : A} → x ≡ y → f x ≡ f y
-cong {f} {x} {y} refl = refl
+cong {A} {B} {f} {x} {.x} refl = refl
 
 subst : ∀ {A : Set} {P : A → Set} {x y : A} → x ≡ y → P x → P y
 subst {A} {p} {x} {.x} refl px = px
